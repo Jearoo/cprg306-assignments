@@ -5,8 +5,9 @@ export default function StudentInfo() {
     <div>
       <p>Name: Jiro Roales</p>
       <p>
-        <Link href="https://github.com/Jearoo/cprg306-assignments">
-          GitHub: https://github.com/Jearoo/cprg306-assignments
+        GitHub:{" "}
+        <Link href="https://github.com/Jearoo/cprg306-assignments"
+           style={{ textDecoration: "underline"}}>Jearoo/cprg306-assignments
         </Link>
       </p>
     </div>
