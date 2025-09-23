@@ -66,7 +66,7 @@ const ItemList = () => {
   ];
 
   return (
-    <ul>
+    <ul className="space-y-4">
       {items.map((item, index) => (
         <Item 
           key={index}
