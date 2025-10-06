@@ -30,10 +30,10 @@ export default function NewItem() {
   };
 
   return (
-    <div className="bg-white">
+    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg">
 
 
-      <form onSubmit={handleSubmit} >
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <div>
           <label
             htmlFor="name"
@@ -48,7 +48,7 @@ export default function NewItem() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Enter item name"
-            className="text-black"
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200 text-black"
           />
         </div>
 
@@ -89,9 +89,9 @@ export default function NewItem() {
         </div>
 
         <div>
-          <label  
+          <label
             htmlFor="category"
-            className="text-gray-700  "
+            className="block font-medium text-gray-700 mb-1"
           >
             Category
           </label>
@@ -99,7 +99,7 @@ export default function NewItem() {
             id="category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="text-black"
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-200 text-black"
           >
             <option value="produce">Produce</option>
             <option value="dairy">Dairy</option>
@@ -117,7 +117,7 @@ export default function NewItem() {
 
         <button
           type="submit"
-          className="bg-blue-500" 
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-all"
         >
           Add Item
         </button>
