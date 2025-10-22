@@ -1,9 +1,11 @@
 'use client';
 import { useState } from 'react';
 import Item from './item';
-import itemsData from './items';
+import itemsFile from './items.json';
 
 const ItemList = () => {
+  const itemsData = Array.isArray(itemsFile) ? itemsFile : itemsFile.default || [];
+
   const [sortBy, setSortBy] = useState('name');
 
   const sortedItems = [...itemsData].sort((a, b) => {
