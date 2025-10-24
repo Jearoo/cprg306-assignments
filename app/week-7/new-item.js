@@ -2,27 +2,24 @@
 
 import { useState } from "react";
 
-export default function NewItem() {
+export default function NewItem({ onAddItem }) {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState("produce");
 
-  const increment = () => {
-    setQuantity((prev) => (prev < 20 ? prev + 1 : prev));
-  };
-
-  const decrement = () => {
-    setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
-  };
+  const increment = () => setQuantity((prev) => (prev < 20 ? prev + 1 : prev));
+  const decrement = () => setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const item = { name, quantity, category };
-
-    console.log("New Item:", item);
-    alert(
-      `Added Item:\n\nName: ${name}\nQuantity: ${quantity}\nCategory: ${category}`
-    );
+    const newItem = {
+      id: Math.random().toString(36).substring(2, 9),
+      name,
+      quantity,
+      category,
+    };
+    
+    onAddItem(newItem);
 
     setName("");
     setQuantity(1);
@@ -31,14 +28,9 @@ export default function NewItem() {
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg">
-
-
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <div>
-          <label
-            htmlFor="name"
-            className="block font-medium text-gray-700 mb-1"
-          >
+          <label htmlFor="name" className="block font-medium text-gray-700 mb-1">
             Item Name
           </label>
           <input
@@ -48,7 +40,7 @@ export default function NewItem() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Enter item name"
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200 text-black"
+            className="w-full p-2 border border-gray-300 rounded-md text-black"
           />
         </div>
 
@@ -67,9 +59,7 @@ export default function NewItem() {
             >
               -
             </button>
-
             <span className="text-xl font-bold text-black">{quantity}</span>
-
             <button
               type="button"
               onClick={increment}
@@ -99,7 +89,7 @@ export default function NewItem() {
             id="category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-200 text-black"
+            className="w-full p-2 border border-gray-300 rounded-md text-black"
           >
             <option value="produce">Produce</option>
             <option value="dairy">Dairy</option>
