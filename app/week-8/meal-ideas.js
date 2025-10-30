@@ -29,19 +29,33 @@ export default function MealIdeas({ ingredient }) {
 
   if (!ingredient) {
     return (
-      <div>
-        <h2>Meal Ideas</h2>
+      <div className="text-white">
+        <h2 className="text-xl font-bold mb-4">Meal Ideas</h2>
         <p>Select an item to view meal ideas.</p>
       </div>
     );
   }
 
   return (
-    <div>
-      <h2>Meal Ideas for "{ingredient}"</h2>
-      <ul>
+    <div className="text-white">
+      <h2 className="text-xl font-bold mb-4">
+        Meal Ideas for "{ingredient}"
+      </h2>
+      <ul className="space-y-3">
         {meals.length > 0 ? (
-          meals.map((meal) => <li key={meal.idMeal}>{meal.strMeal}</li>)
+          meals.map((meal) => (
+            <li
+              key={meal.idMeal}
+              className="bg-gray-700 rounded-lg p-3 flex items-center gap-4"
+            >
+              <img
+                src={meal.strMealThumb}
+                alt={meal.strMeal}
+                className="w-16 h-16 rounded-md"
+              />
+              <p className="font-semibold">{meal.strMeal}</p>
+            </li>
+          ))
         ) : (
           <p>No meal ideas found for this ingredient.</p>
         )}
