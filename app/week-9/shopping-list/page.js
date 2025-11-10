@@ -15,13 +15,23 @@ export default function Page() {
   const [selectedItemName, setSelectedItemName] = useState("");
 
   useEffect(() => {
+    if (user === undefined) return; 
+
     if (user === null) {
-      router.push("/week-9");
+      router.push("/week-9"); 
     }
   }, [user, router]);
 
-  if (!user) {
-    return null;
+  if (user === undefined) {
+    return (
+      <main className="text-white flex justify-center items-center min-h-screen">
+        <p>Checking authentication...</p>
+      </main>
+    );
+  }
+
+  if (user === null) {
+    return null; 
   }
 
   const handleAddItem = (newItem) => {
