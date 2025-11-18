@@ -6,21 +6,32 @@ import { useUserAuth } from "../../contexts/AuthContext";
 import NewItem from "./new-item";
 import ItemList from "./item-list";
 import MealIdeas from "./meal-ideas";
-import itemsData from "./items.json";
+import { getItems, addItem } from "../_services/shopping-list-service";
 
 export default function Page() {
   const { user } = useUserAuth();
   const router = useRouter();
-  const [items, setItems] = useState(itemsData);
+  const [items, setItems] = useState([]);
   const [selectedItemName, setSelectedItemName] = useState("");
 
   useEffect(() => {
-    if (user === undefined) return; 
+    if (user === undefined) return;
 
     if (user === null) {
-      router.push("/week-9"); 
+      router.push("/week-10");
     }
   }, [user, router]);
+
+  useEffect(() => {
+    if (!user) return;
+
+    async function loadItems() {
+      const data = await getItems(user.uid);
+      setItems(data);
+    }
+
+    loadItems();
+  }, [user]);
 
   if (user === undefined) {
     return (
@@ -31,11 +42,13 @@ export default function Page() {
   }
 
   if (user === null) {
-    return null; 
+    return null;
   }
 
-  const handleAddItem = (newItem) => {
-    setItems((prevItems) => [...prevItems, newItem]);
+  const handleAddItem = async (newItem) => {
+    const id = await addItem(user.uid, newItem);
+    newItem.id = id;
+    setItems((prev) => [...prev, newItem]);
   };
 
   const handleItemSelect = (item) => {
@@ -61,7 +74,6 @@ export default function Page() {
             <ItemList items={items} onItemSelect={handleItemSelect} />
           </div>
         </div>
-
         <div className="flex-1">
           <MealIdeas ingredient={selectedItemName} />
         </div>
